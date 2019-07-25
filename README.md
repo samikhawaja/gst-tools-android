@@ -1,2 +1,2 @@
-# gst-launch
-A gst-launch for android
+# gst-tools-android
+A gst-tools for android

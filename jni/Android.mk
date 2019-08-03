@@ -5,14 +5,30 @@ include $(CLEAR_VARS)
 CXX_SHARED_ROOT := $(NDK_ROOT)/sources/cxx-stl/llvm-libc++/libs/$(TARGET_ARCH_ABI)
 
 
-LOCAL_CFLAGS += -fPIE
-LOCAL_LDFLAGS += -fPIE -pie
-LOCAL_CPPFLAGS += -std=gnu++0x -fPIE -ggdb
+#LOCAL_CFLAGS += -fPIE
+#LOCAL_LDFLAGS += -fPIE -pie
+#LOCAL_CPPFLAGS += -std=gnu++0x -fPIE -ggdb
 
-LOCAL_MODULE     := gst-launch
-LOCAL_SRC_FILES  := gst-launch.c
+COMMON_SRC_FILES := gst-setup.c
+
+TOOL_NAME := gst-launch
+LOCAL_MODULE     := $(TOOL_NAME)
+LOCAL_SRC_FILES  := $(TOOL_NAME).c $(COMMON_SRC_FILES)
 LOCAL_SHARED_LIBRARIES := gstreamer_android
-LOCAL_LDLIBS := -fPIE -pie -L$(CXX_SHARED_ROOT) -nostdlib++ -lc++_shared -ggdb
+#LOCAL_SHARED_LIBRARIES += c++_shared
+LOCAL_LDFLAGS += -lc++_shared
+#LOCAL_LDLIBS := -L$(CXX_SHARED_ROOT) 
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+
+TOOL_NAME := gst-inspect
+LOCAL_MODULE     := $(TOOL_NAME)
+LOCAL_SRC_FILES  := $(TOOL_NAME).c $(COMMON_SRC_FILES)
+LOCAL_SHARED_LIBRARIES := gstreamer_android
+#LOCAL_SHARED_LIBRARIES += c++_shared
+LOCAL_LDFLAGS += -lc++_shared
+#LOCAL_LDLIBS := -L$(CXX_SHARED_ROOT) 
 include $(BUILD_EXECUTABLE)
 
 ifndef GSTREAMER_ROOT_ANDROID

@@ -1937,8 +1937,11 @@ child_exit_cb (GPid child_pid, gint status, gpointer user_data)
 }
 #endif
 
+void
+gst_android_init_native ();
+
 int
-gst_inspect_main (int argc, char *argv[])
+main (int argc, char *argv[])
 {
   gboolean print_all = FALSE;
   gboolean do_print_blacklist = FALSE;
@@ -1953,6 +1956,11 @@ gst_inspect_main (int argc, char *argv[])
   gchar *types = NULL;
   const gchar *no_colors;
   int exit_code = 0;
+
+  //printf("Going to initialize gstreamer\n");
+
+  gst_android_init_native();
+
 #ifndef GST_DISABLE_OPTION_PARSING
   GOptionEntry options[] = {
     {"print-all", 'a', 0, G_OPTION_ARG_NONE, &print_all,

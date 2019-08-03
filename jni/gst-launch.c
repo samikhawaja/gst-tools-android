@@ -979,6 +979,8 @@ bus_sync_handler (GstBus * bus, GstMessage * message, gpointer data)
   return GST_BUS_PASS;
 }
 
+void gst_android_init_native();
+
 int
 main (int argc, char *argv[])
 {  
@@ -989,6 +991,9 @@ main (int argc, char *argv[])
 #if 0
   gboolean check_index = FALSE;
 #endif
+
+  gst_android_init_native();
+
   gchar *savefile = NULL;
 #ifndef GST_DISABLE_OPTION_PARSING
   GOptionEntry options[] = {
